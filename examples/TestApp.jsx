@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import tips from './tips';
 import { sortAs } from '../src/Utilities';
 import TableRenderers from '../src/TableRenderers';
@@ -15,12 +15,12 @@ function PivotTableUISmartWrapper(props) {
     const [pivotSettings, setPivotSettings] = useState({});
     useEffect(() => {
         setPivotSettings(props)
-    
-      return () => {
-        setPivotSettings({})
-      }
-    },[])
-    
+
+        return () => {
+            setPivotSettings({})
+        }
+    }, [props])
+
     return <PivotTableUI
         renderers={Object.assign(
             {},
@@ -65,14 +65,31 @@ const defPivotSettings = {
 }
 
 function TestApp() {
-    //const [pivotState, setPivotState] = useState(defPivotSettings);
-
+    const [pivotState, setPivotState] = useState(defPivotSettings);
+    const [hideRow, setHideRow] = useState(false);
+    const [hideCol, setHideCol] = useState(false);
+    const [totalsLabel, setTotalsLabel] = useState('Totals');
     return (
         <div>
             <div className="row">
+                <input type="checkbox" id="hiderow" name="hiderow" checked={hideRow} onChange={() => { setHideRow(!hideRow); setPivotState((ps) => { return { ...ps, hideRowTotals: !hideRow } }) }} />
+                <label htmlFor="hiderow">Hide Row Totals</label>
+                <input type="checkbox" id="hidecol" name="hidecol" checked={hideCol} onChange={() => { setHideCol(!hideCol); setPivotState((ps) => { return { ...ps, hideColTotals: !hideCol } }) }} />
+                <label htmlFor="hidecol">Hide Col Totals</label>
+            </div>
+            <div className="row">
+                <label>
+                    Total Label:
+                    <input
+                        value={totalsLabel} // ...force the input's value to match the state variable...
+                        onChange={e => {setTotalsLabel(e.target.value);setPivotState((ps) => { return { ...ps, totalsLabel: e.target.value } }) }} // ... and update the state variable on any edits!
+                    />
+                </label>
+            </div>
+            <div className="row">
                 <br />
 
-                <PivotTableUISmartWrapper {...defPivotSettings} />
+                <PivotTableUISmartWrapper {...pivotState} />
             </div>
         </div>
     )

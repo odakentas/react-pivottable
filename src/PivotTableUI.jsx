@@ -348,7 +348,7 @@ class PivotTableUI extends React.PureComponent {
 
     function localChange(newState) {
       const changeItems = newState.map(s=>s.name)
-      console.log(items,newState,changeItems)
+      //console.log(items,newState,changeItems)
       onChange(changeItems)
     }
     return (
