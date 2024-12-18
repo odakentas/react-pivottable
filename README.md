@@ -32,6 +32,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
+import 'react-pivottable/grouping.css';
 
 // see documentation for supported input formats
 const data = [
@@ -79,6 +80,7 @@ To add the Plotly renderers to your app, you can use the following pattern:
 import React from 'react';
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
+import 'react-pivottable/grouping.css';
 import TableRenderers from 'react-pivottable/TableRenderers';
 import Plot from 'react-plotly.js';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';
@@ -123,6 +125,7 @@ peer-dependcy warning and handle the dependency injection like this:
 import React from 'react';
 import PivotTableUI from 'react-pivottable/PivotTableUI';
 import 'react-pivottable/pivottable.css';
+import 'react-pivottable/grouping.css';
 import TableRenderers from 'react-pivottable/TableRenderers';
 import createPlotlyComponent from 'react-plotly.js/factory';
 import createPlotlyRenderers from 'react-pivottable/PlotlyRenderers';

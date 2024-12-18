@@ -331,10 +331,9 @@ table.pvtTable tbody tr td {
 
 .pvtColSortButton {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row nowrap;
     justify-content: center;
     align-items: center;
-    margin-left: 5px;
     padding: 0 5px;
     background-color: transparent;
     border: none;
