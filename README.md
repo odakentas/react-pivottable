@@ -9,17 +9,8 @@ functionality. It is a React port of the jQuery-based
 ### Changes applied by Odakent:
 
 - Updated libraries.
-
-## What does it do & where is the demo?
-
-`react-pivottable`'s function is to enable data exploration and analysis by
-summarizing a data set into table or [Plotly.js](https://plot.ly/javascript/)
-chart with a true 2-d drag'n'drop UI, very similar to the one found in older
-versions of Microsoft Excel.
-
-A [live demo can be found here](https://react-pivottable.js.org/).
-
-![screencap](examples/basic.gif)
+- Simplified test screen, removed drag'n'drop csv support.
+- Adapted hide Totals cells.
 
 ## How can I use it in my project?
 
