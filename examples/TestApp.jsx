@@ -6,6 +6,11 @@ import PivotTableUI from '../src/PivotTableUI';
 
 import '../src/pivottable.css';
 
+import createPlotlyRenderers from '../src/PlotlyRenderers';
+import createPlotlyComponent from 'react-plotly.js/factory';
+
+const Plot = createPlotlyComponent(window.Plotly);
+
 function PivotTableUISmartWrapper(props) {
     const [pivotSettings, setPivotSettings] = useState({});
     useEffect(() => {
@@ -18,7 +23,9 @@ function PivotTableUISmartWrapper(props) {
     
     return <PivotTableUI
         renderers={Object.assign(
+            {},
             TableRenderers,
+            createPlotlyRenderers(Plot)
         )}
         //{...props}
         {...pivotSettings}
@@ -32,7 +39,7 @@ const defPivotSettings = {
     cols: ['Party Size'],
     aggregatorName: 'Sum over Sum',
     vals: ['Tip', 'Total Bill'],
-    rendererName: 'Grouped Column Chart',
+    rendererName: 'Table Heatmap',
     sorters: {
         Meal: sortAs(['Lunch', 'Dinner']),
         'Day of Week': sortAs([
