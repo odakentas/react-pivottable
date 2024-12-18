@@ -11,6 +11,8 @@ functionality. It is a React port of the jQuery-based
 - Updated libraries.
 - Simplified test screen, removed drag'n'drop csv support.
 - Adapted hide Totals cells.
+- Adapted change Totals labels
+- Added sorting
 
 ## How can I use it in my project?
 

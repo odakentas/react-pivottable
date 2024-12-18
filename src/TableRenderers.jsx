@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PivotData } from './Utilities';
+import update from 'immutability-helper';
+
+import {
+  PivotData,
+  ASCENDING_SORT_LABEL,
+  DESCENDING_SORT_LABEL,
+  ROW_COL_KEY_JOINER
+} from './Utilities';
 
 // helper function for setting row/col-span in pivotTableRenderer
 const spanSize = function (arr, i, j) {
@@ -58,7 +65,12 @@ function makeRenderer(opts = {}) {
       const pivotData = new PivotData(this.props);
       const colAttrs = pivotData.props.cols;
       const rowAttrs = pivotData.props.rows;
-      const rowKeys = pivotData.getRowKeys();
+      const rowKeys = this.props.sortingColumn
+        ? pivotData.getUserSortedRowKeys(
+          this.props.sortingColumn.name,
+          this.props.sortingColumn.order
+        )
+        : pivotData.getRowKeys();
       const colKeys = pivotData.getColKeys();
       const grandTotalAggregator = pivotData.getAggregator([], []);
       const hideRowTotals = this.props.hideRowTotals;
@@ -102,6 +114,53 @@ function makeRenderer(opts = {}) {
         }
       }
 
+      const getSortButtonClassNames = (columnKeySet) => {
+        const uniqueColumnKey = columnKeySet.join(ROW_COL_KEY_JOINER);
+        const { sortingColumn } = this.props;
+        let classes = 'pvtColSortButton';
+        if (sortingColumn && sortingColumn.name === uniqueColumnKey) {
+          if (sortingColumn.order === ASCENDING_SORT_LABEL) {
+            classes += ' pvtColSortButton-asc-active';
+          }
+          if (sortingColumn.order === DESCENDING_SORT_LABEL) {
+            classes += ' pvtColSortButton-desc-active';
+          }
+        }
+        return classes;
+      };
+      const updateSortingColumn = column => {
+        this.props.onChange(
+          update(this.props, {
+            sortingColumn: { $set: column }
+          })
+        );
+      };
+      const handleSortButtonClick = (columnKeySet = []) => {
+        if (pivotData.props.rows.length === 0) {
+          return;
+        }
+        const { sortingColumn } = this.props;
+        const uniqueColumnKey = columnKeySet.join(ROW_COL_KEY_JOINER);
+        // If this is the first time this sort button has been clicked, set it's sorting to ascending
+        if (!sortingColumn || sortingColumn.name !== uniqueColumnKey) {
+          updateSortingColumn({
+            name: uniqueColumnKey,
+            order: ASCENDING_SORT_LABEL
+          });
+        } else {
+          if (sortingColumn.order === ASCENDING_SORT_LABEL) {
+            // If it was already in the ascending state, set it to descending
+            updateSortingColumn({
+              name: uniqueColumnKey,
+              order: DESCENDING_SORT_LABEL
+            });
+          } else {
+            // If it was already in the descending state, clear the sorting state
+            updateSortingColumn(null);
+          }
+        }
+      };
+
       const getClickHandler =
         this.props.tableOptions && this.props.tableOptions.clickCallback
           ? (value, rowValues, colValues) => {
@@ -137,6 +196,14 @@ function makeRenderer(opts = {}) {
                     if (x === -1) {
                       return null;
                     }
+                    // Multiple column attributes can be added to the pivot table, we only render
+                    // sort buttons for the last row of column headers
+                    const canSort =
+                      !!pivotData.props
+                        .enableColumnSorting &&
+                      !!colKey &&
+                      colKey.indexOf(colKey[j]) ===
+                      colKey.length - 1;
                     return (
                       <th
                         className="pvtColLabel"
@@ -149,6 +216,28 @@ function makeRenderer(opts = {}) {
                         }
                       >
                         {colKey[j]}
+                        <div className="pvtColLabelInner">
+                          {colKey[j]}
+                          {canSort && (
+                            <button
+                              className={getSortButtonClassNames(
+                                colKey
+                              )}
+                              onClick={() =>
+                                handleSortButtonClick(
+                                  colKey
+                                )
+                              }
+                            >
+                              <span className="pvtColSortButton-asc-icon">
+                                &#x25B2;
+                              </span>
+                              <span className="pvtColSortButton-desc-icon">
+                                &#x25BC;
+                              </span>
+                            </button>
+                          )}
+                        </div>
                       </th>
                     );
                   })}
@@ -284,7 +373,7 @@ function makeRenderer(opts = {}) {
               )}
             </tr>
           </tbody>
-        </table>
+        </table >
       );
     }
   }

@@ -38,6 +38,13 @@ table.pvtTable .pvtTotalLabel {
     text-align: right;
 }
 
+table.pvtTable .pvtColLabelInner {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
 table.pvtTable tbody tr td {
     color: #2a3f5f;
     padding: 5px;
@@ -320,4 +327,23 @@ table.pvtTable tbody tr td {
 
 .pvtRendererArea {
     padding: 5px;
+}
+
+.pvtColSortButton {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-left: 5px;
+    padding: 0 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #506784;
+}
+.pvtColSortButton-asc-active > .pvtColSortButton-asc-icon {
+    color: #119dff;
+}
+.pvtColSortButton-desc-active > .pvtColSortButton-desc-icon {
+    color: #119dff;
 }

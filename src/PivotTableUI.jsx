@@ -366,7 +366,7 @@ class PivotTableUI extends React.PureComponent {
           <DraggableAttribute
             name={x.name}
             key={x.name + "-" + x.id}
-            attrValues={this.state.attrValues[x.name]}
+            attrValues={this.state.attrValues[x.name] || {}}
             valueFilter={this.props.valueFilter[x.name] || {}}
             sorter={getSort(this.props.sorters, x.name)}
             menuLimit={this.props.menuLimit}
@@ -578,6 +578,7 @@ class PivotTableUI extends React.PureComponent {
 }
 
 PivotTableUI.propTypes = Object.assign({}, PivotTable.propTypes, {
+  enableColumnSorting: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   hiddenAttributes: PropTypes.arrayOf(PropTypes.string),
   hiddenFromAggregators: PropTypes.arrayOf(PropTypes.string),
@@ -587,6 +588,7 @@ PivotTableUI.propTypes = Object.assign({}, PivotTable.propTypes, {
 });
 
 PivotTableUI.defaultProps = Object.assign({}, PivotTable.defaultProps, {
+  enableColumnSorting: false,
   hiddenAttributes: [],
   hiddenFromAggregators: [],
   hiddenFromDragDrop: [],

@@ -68,6 +68,7 @@ function TestApp() {
     const [pivotState, setPivotState] = useState(defPivotSettings);
     const [hideRow, setHideRow] = useState(false);
     const [hideCol, setHideCol] = useState(false);
+    const [colSort, setColSort] = useState(false);
     const [totalsLabel, setTotalsLabel] = useState('Totals');
     return (
         <div>
@@ -76,6 +77,8 @@ function TestApp() {
                 <label htmlFor="hiderow">Hide Row Totals</label>
                 <input type="checkbox" id="hidecol" name="hidecol" checked={hideCol} onChange={() => { setHideCol(!hideCol); setPivotState((ps) => { return { ...ps, hideColTotals: !hideCol } }) }} />
                 <label htmlFor="hidecol">Hide Col Totals</label>
+                <input type="checkbox" id="colsort" name="enablecolsort" checked={colSort} onChange={() => { setColSort(!colSort); setPivotState((ps) => { return { ...ps, enableColumnSorting: !colSort } }) }} />
+                <label htmlFor="colsort">Enable column Sort</label>
             </div>
             <div className="row">
                 <label>
