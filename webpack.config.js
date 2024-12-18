@@ -1,9 +1,11 @@
-var webpack = require('webpack');
-
 module.exports = {
+  devServer: {
+    hot: true,
+    static: './examples'
+  },
+  devtool: 'source-map',
+  mode: 'development',
   entry: [
-    'babel-polyfill',
-    'react-hot-loader/patch',
     './examples/index.jsx'
   ],
   output: {
@@ -13,14 +15,10 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            "presets" : [["env", {"modules": false}], "react"],
-            "plugins": ["react-hot-loader/babel"]
-          }
-        },
         exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        },
       },
       {
         test: /\.css$/,
@@ -28,14 +26,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  devServer: {
-      contentBase: './examples',
-      hot: true
-    },
   resolve: {
     extensions: ['.js', '.jsx'],
   },

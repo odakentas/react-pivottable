@@ -4,13 +4,11 @@
 functionality. It is a React port of the jQuery-based
 [PivotTable.js](https://pivottable.js.org/) by the same author.
 
-`react-pivottable` is part of Plotly's [React Component Suite](https://plot.ly/products/react/) for building data visualization Web apps and products.
+## This fork maintained by Odakent.
 
-<div align="center">
-  <a href="https://dash.plotly.com/project-maintenance">
-    <img src="https://dash.plotly.com/assets/images/maintained-by-plotly.png" width="400px" alt="Maintained by Plotly">
-  </a>
-</div>
+### Changes applied by Odakent:
+
+- Updated libraries.
 
 ## What does it do & where is the demo?
 

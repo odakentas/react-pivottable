@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import {PivotData, sortAs, getSort} from './Utilities';
 import PivotTable from './PivotTable';
-import Sortable from 'react-sortablejs';
+import { ReactSortable } from "react-sortablejs";
 import Draggable from 'react-draggable';
 
 /* eslint-disable react/prop-types */
@@ -289,6 +289,9 @@ class PivotTableUI extends React.PureComponent {
   }
 
   propUpdater(key) {
+    if (key=="cols"){
+      console.log(key)
+    }
     return value => this.sendPropUpdate({[key]: {$set: value}});
   }
 
@@ -340,34 +343,41 @@ class PivotTableUI extends React.PureComponent {
   }
 
   makeDnDCell(items, onChange, classes) {
+
+    const lclItems = items.map((li,i)=>{return{id:i,name:li}})
+
+    function localChange(newState) {
+      const changeItems = newState.map(s=>s.name)
+      console.log(items,newState,changeItems)
+      onChange(changeItems)
+    }
     return (
-      <Sortable
-        options={{
-          group: 'shared',
-          ghostClass: 'pvtPlaceholder',
-          filter: '.pvtFilterBox',
-          preventOnFilter: false,
-        }}
+      <ReactSortable
+        filter=".pvtFilterBox"
+        preventOnFilter={false}
+        ghostClass= "pvtPlaceholder"
+        group="shared"
         tag="td"
+        list={lclItems}
+        setList={localChange}
         className={classes}
-        onChange={onChange}
       >
-        {items.map(x => (
+        {lclItems.map(x => (
           <DraggableAttribute
-            name={x}
-            key={x}
-            attrValues={this.state.attrValues[x]}
-            valueFilter={this.props.valueFilter[x] || {}}
-            sorter={getSort(this.props.sorters, x)}
+            name={x.name}
+            key={x.name+"-"+x.id}
+            attrValues={this.state.attrValues[x.name]}
+            valueFilter={this.props.valueFilter[x.name] || {}}
+            sorter={getSort(this.props.sorters, x.name)}
             menuLimit={this.props.menuLimit}
             setValuesInFilter={this.setValuesInFilter.bind(this)}
             addValuesToFilter={this.addValuesToFilter.bind(this)}
             moveFilterBoxToTop={this.moveFilterBoxToTop.bind(this)}
             removeValuesFromFilter={this.removeValuesFromFilter.bind(this)}
-            zIndex={this.state.zIndices[x] || this.state.maxZIndex}
+            zIndex={this.state.zIndices[x.name] || this.state.maxZIndex}
           />
         ))}
-      </Sortable>
+      </ReactSortable>
     );
   }
 
@@ -528,7 +538,6 @@ class PivotTableUI extends React.PureComponent {
         />
       </td>
     );
-
     if (horizUnused) {
       return (
         <table className="pvtUi">
