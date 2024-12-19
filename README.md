@@ -5,6 +5,7 @@ functionality. It is a React port of the jQuery-based
 [PivotTable.js](https://pivottable.js.org/) by the same author.
 
 ## This fork maintained by Odakent.
+> In windows use WSL for building and publishing.
 
 ### Changes applied by Odakent:
 
@@ -13,6 +14,8 @@ functionality. It is a React port of the jQuery-based
 - Adapted hide Totals cells.
 - Adapted change Totals labels
 - Added sorting
+- Added Grouping
+- Added types from @types/react-pivottable
 
 ## How can I use it in my project?
 
