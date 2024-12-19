@@ -1,6 +1,6 @@
 {
-  "name": "react-pivottable",
-  "version": "0.12.0",
+  "name": "@odakentas/react-pivottable",
+  "version": "0.12.1",
   "description": "A React-based pivot table",
   "main": "PivotTableUI.js",
   "files": [
@@ -26,8 +26,8 @@
     "test:jest": "jest",
     "test": "npm run test:eslint && npm run test:prettier && npm run test:jest",
     "clean": "rm -rf __tests__ PivotTable.js* PivotTableUI.js* PlotlyRenderers.js* TableRenderers.js* Utilities.js* pivottable.css grouping.css",
-    "build": "npm run clean && cp src/pivottable.css . && cp src/grouping.css . && babel src --out-dir=. --source-maps --presets=env,react --plugins babel-plugin-add-module-exports",
-    "doPublish": "npm run build && npm publish",
+    "build": "npm run clean && cp src/pivottable.css . && cp src/grouping.css . && babel src --out-dir=. --source-maps",
+    "doPublish": "npm run build && npm publish --access public",
     "postpublish": "npm run clean"
   },
   "repository": {
@@ -55,15 +55,13 @@
     "react-dom": ">=19.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.26.4",
+    "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@eslint/compat": "^1.2.4",
-    "babel-cli": "^6.26.0",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^9.2.1",
-    "babel-plugin-add-module-exports": "^1.0.4",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "css-loader": "^7.1.2",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
