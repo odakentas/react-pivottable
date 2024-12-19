@@ -1,6 +1,6 @@
 {
     "name": "@odakentas/react-pivottable",
-    "version": "0.12.2",
+    "version": "0.12.3",
     "description": "A React-based pivot table",
     "main": "PivotTableUI.js",
     "files": [
@@ -58,8 +58,8 @@
         "sortablejs": "^1.6.1"
     },
     "peerDependencies": {
-        "react": ">=19.0.0",
-        "react-dom": ">=19.0.0"
+        "react": ">=18.0.0",
+        "react-dom": ">=18.0.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.26.4",
