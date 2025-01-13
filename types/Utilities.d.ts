@@ -89,6 +89,20 @@ interface Pivot {
     colOrder?: TQuerySort;
 
     /**
+     * Hide Row Totals
+     */
+    hideRowTotals?: boolean;
+    /**
+     * Hide Column Totals
+     */
+    hideColTotals?: boolean;
+    /**
+     * Totals Cell Label
+     */
+    totalsLabel?: string;
+
+
+    /**
      * @see original PivotTable.js documentation
      */
     derivedAttributes?: { [k: string]: (p: string) => string };
